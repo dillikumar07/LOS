@@ -1,0 +1,107 @@
+<template>
+    <template if:true={sanctionedAmount}>
+        <template if:true={showConfirmationPage}>
+            <lightning-card title="Sanctioned Amount Confirmation">
+                <div class="slds-p-around_medium">
+                    <p>This is a confirmation page to check whether the customer is OK with the sanction amount for the applied loan.</p>
+                    <p><strong>Sanctioned Amount:</strong> {sanctionedAmount}</p>
+                    <p>Do you want to accept the sanction amount for your loan application?</p>
+                    <div class="slds-m-top_medium slds-grid slds-gutters">
+                        <lightning-button class="slds-col" variant="brand" label="Accept" onclick={handleAccept}></lightning-button>
+                        <lightning-button class="slds-col" variant="destructive" label="Decline" onclick={handleDecline}></lightning-button>
+                    </div>
+                </div>
+            </lightning-card>
+        </template>
+    </template>
+
+    <template if:true={showThankYouPage}>
+        <lightning-card title="Sanctioned amount Confirmation">
+            <div class="slds-p-around_medium">
+                <p>Thank You for your confirmation</p>
+                <p>The Sanctioned Amount is credited into your account.</p>
+
+            </div>
+        </lightning-card>
+    </template>
+
+    <!-- Modal Section -->
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container custom-modal-container">
+                <!-- Modal/Popup Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleClose}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">EMI Plans</h2>
+                </header>
+
+                <!-- Modal/Popup Body -->
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={showPlans}>
+                        <lightning-card title="EMI Plans">
+                            <p><strong>Sanctioned Amount:</strong> {sanctionedAmount}</p>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-top_medium">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col">
+                                            <div class="slds-truncate">Annual Interest Rate</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate">Loan Tenure (Years)</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate">EMI</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate">Action</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={loanPlans} for:item="plan">
+                                        <tr key={plan.loanTenureYears}>
+                                            <td data-label="Annual Interest Rate">
+                                                <div class="slds-truncate">{plan.annualInterestRate}%</div>
+                                            </td>
+                                            <td data-label="Loan Tenure (Years)">
+                                                <div class="slds-truncate">{plan.loanTenureYears}</div>
+                                            </td>
+                                            <td data-label="EMI">
+                                                <div class="slds-truncate">{plan.emi}</div>
+                                            </td>
+                                            <td data-label="Action">
+                                                <lightning-button 
+                                                    label="Select Plan" 
+                                                    data-id={plan.loanTenureYears} 
+                                                    onclick={handlePlanSelection}>
+                                                </lightning-button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </lightning-card>
+                    </template>
+
+                    <template if:true={selectedPlan}>
+                        <lightning-card title="Selected Plan">
+                            <p><strong>Principal Amount:</strong> {selectedPlan.principalAmount}</p>
+                            <p><strong>Annual Interest Rate:</strong> {selectedPlan.annualInterestRate}</p>
+                            <p><strong>Loan Tenure (Years):</strong> {selectedPlan.loanTenureYears}</p>
+                            <p><strong>EMI:</strong> {selectedPlan.emi}</p>
+                            <lightning-button 
+                                label="Accept Selected Plan" 
+                                onclick={handleAcceptPlan} 
+                                class="accept-button">
+                            </lightning-button>
+                        </lightning-card>
+                    </template>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

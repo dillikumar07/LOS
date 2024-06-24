@@ -1,0 +1,130 @@
+<template>
+    <lightning-card title="Loan Account Details" icon-name="custom:custom63">
+        <template if:true={records}>
+            <template for:each={records} for:item="record">
+                <div key={record.Id} class="slds-box slds-m-bottom_medium">
+                    <lightning-record-edit-form object-api-name="Loan_Account__c" record-id={record.Id}>
+                        <lightning-messages></lightning-messages>
+
+                        <!-- Personal Information Section -->
+                        <div class="slds-section">
+                            <h3 class="slds-section__title">Personal Information</h3>
+                            <div class="slds-section__content">
+                                <template if:true={isEditing.Legal_name__c}>
+                                    <lightning-input-field field-name="Legal_name__c" data-field="Legal_name__c"></lightning-input-field>
+                                    <lightning-button variant="brand" name="saveLegal_name__c" label="Save" onclick={handleSave}></lightning-button>
+                                </template>
+                                <template if:false={isEditing.Legal_name__c}>
+                                    <p><strong>Legal Name:</strong> {record.Legal_name__c}</p>
+                                    <lightning-button variant="neutral" name="editLegal_name__c" label="Edit" onclick={handleEdit}></lightning-button>
+                                </template>
+
+                                <template if:true={isEditing.DateofBirth__c}>
+                                    <lightning-input-field field-name="DateofBirth__c" data-field="DateofBirth__c"></lightning-input-field>
+                                    <lightning-button variant="brand" name="saveDateofBirth__c" label="Save" onclick={handleSave}></lightning-button>
+                                </template>
+                                <template if:false={isEditing.DateofBirth__c}>
+                                    <p><strong>Date of Birth:</strong> {record.DateofBirth__c}</p>
+                                    <lightning-button variant="neutral" name="editDateofBirth__c" label="Edit" onclick={handleEdit}></lightning-button>
+                                </template>
+
+                                <template if:true={isEditing.Birthplace__c}>
+                                    <lightning-input-field field-name="Birthplace__c" data-field="Birthplace__c"></lightning-input-field>
+                                    <lightning-button variant="brand" name="saveBirthplace__c" label="Save" onclick={handleSave}></lightning-button>
+                                </template>
+                                <template if:false={isEditing.Birthplace__c}>
+                                    <p><strong>Birthplace:</strong> {record.Birthplace__c}</p>
+                                    <lightning-button variant="neutral" name="editBirthplace__c" label="Edit" onclick={handleEdit}></lightning-button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Contact Information Section -->
+                        <div class="slds-section">
+                            <h3 class="slds-section__title">Contact Information</h3>
+                            <div class="slds-section__content">
+                                <template if:true={isEditing.EmailAddress__c}>
+                                    <lightning-input-field field-name="EmailAddress__c" data-field="EmailAddress__c"></lightning-input-field>
+                                    <lightning-button variant="brand" name="saveEmailAddress__c" label="Save" onclick={handleSave}></lightning-button>
+                                </template>
+                                <template if:false={isEditing.EmailAddress__c}>
+                                    <p><strong>Email Address:</strong> {record.EmailAddress__c}</p>
+                                    <lightning-button variant="neutral" name="editEmailAddress__c" label="Edit" onclick={handleEdit}></lightning-button>
+                                </template>
+
+                                <template if:true={isEditing.TelephoneNumbers__c}>
+                                    <lightning-input-field field-name="TelephoneNumbers__c" data-field="TelephoneNumbers__c"></lightning-input-field>
+                                    <lightning-button variant="brand" name="saveTelephoneNumbers__c" label="Save" onclick={handleSave}></lightning-button>
+                                </template>
+                                <template if:false={isEditing.TelephoneNumbers__c}>
+                                    <p><strong>Telephone Numbers:</strong> {record.TelephoneNumbers__c}</p>
+                                    <lightning-button variant="neutral" name="editTelephoneNumbers__c" label="Edit" onclick={handleEdit}></lightning-button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Employment Information Section -->
+                        <div class="slds-section">
+                            <h3 class="slds-section__title">Employment Information</h3>
+                            <div class="slds-section__content">
+                                <template if:true={isEditing.PresentOccupation__c}>
+                                    <lightning-input-field field-name="PresentOccupation__c" data-field="PresentOccupation__c"></lightning-input-field>
+                                    <lightning-button variant="brand" name="savePresentOccupation__c" label="Save" onclick={handleSave}></lightning-button>
+                                </template>
+                                <template if:false={isEditing.PresentOccupation__c}>
+                                    <p><strong>Present Occupation:</strong> {record.PresentOccupation__c}</p>
+                                    <lightning-button variant="neutral" name="editPresentOccupation__c" label="Edit" onclick={handleEdit}></lightning-button>
+                                </template>
+
+                                <template if:true={isEditing.CurrentEmployer__c}>
+                                    <lightning-input-field field-name="CurrentEmployer__c" data-field="CurrentEmployer__c"></lightning-input-field>
+                                    <lightning-button variant="brand" name="saveCurrentEmployer__c" label="Save" onclick={handleSave}></lightning-button>
+                                </template>
+                                <template if:false={isEditing.CurrentEmployer__c}>
+                                    <p><strong>Current Employer:</strong> {record.CurrentEmployer__c}</p>
+                                    <lightning-button variant="neutral" name="editCurrentEmployer__c" label="Edit" onclick={handleEdit}></lightning-button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Additional Information Section -->
+                        <div class="slds-section">
+                            <h3 class="slds-section__title">Additional Information</h3>
+                            <div class="slds-section__content">
+                                <template if:true={isEditing.BankingInformation__c}>
+                                    <lightning-input-field field-name="BankingInformation__c" data-field="BankingInformation__c"></lightning-input-field>
+                                    <lightning-button variant="brand" name="saveBankingInformation__c" label="Save" onclick={handleSave}></lightning-button>
+                                </template>
+                                <template if:false={isEditing.BankingInformation__c}>
+                                    <p><strong>Banking Information:</strong> {record.BankingInformation__c}</p>
+                                    <lightning-button variant="neutral" name="editBankingInformation__c" label="Edit" onclick={handleEdit}></lightning-button>
+                                </template>
+
+                                <template if:true={isEditing.PersonalIdentification__c}>
+                                    <lightning-input-field field-name="PersonalIdentification__c" data-field="PersonalIdentification__c"></lightning-input-field>
+                                    <lightning-button variant="brand" name="savePersonalIdentification__c" label="Save" onclick={handleSave}></lightning-button>
+                                </template>
+                                <template if:false={isEditing.PersonalIdentification__c}>
+                                    <p><strong>Personal Identification:</strong> {record.PersonalIdentification__c}</p>
+                                    <lightning-button variant="neutral" name="editPersonalIdentification__c" label="Edit" onclick={handleEdit}></lightning-button>
+                                </template>
+
+                                <template if:true={isEditing.Signature__c}>
+                                    <lightning-input-field field-name="Signature__c" data-field="Signature__c"></lightning-input-field>
+                                    <lightning-button variant="brand" name="saveSignature__c" label="Save" onclick={handleSave}></lightning-button>
+                                </template>
+                                <template if:false={isEditing.Signature__c}>
+                                    <p><strong>Signature:</strong> {record.Signature__c}</p>
+                                    <lightning-button variant="neutral" name="editSignature__c" label="Edit" onclick={handleEdit}></lightning-button>
+                                </template>
+                            </div>
+                        </div>
+                    </lightning-record-edit-form>
+                </div>
+            </template>
+        </template>
+        <template if:true={error}>
+            <p class="slds-text-color_error">{error}</p>
+        </template>
+    </lightning-card>
+</template>

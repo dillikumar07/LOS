@@ -1,0 +1,69 @@
+<template>
+    <lightning-card title="EMI Records">
+        <template if:true={personalLoanRecords.length}>
+            <lightning-card title="Personal Loan EMI Records" class="slds-m-top_medium">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr>
+                            <th scope="col">EMI Name</th>
+                            <th scope="col">Sanctioned Amount</th>
+                            <th scope="col">Amount Yet to be Paid</th>
+                            <th scope="col">Number of EMIs Paid</th>
+                            <th scope="col">EMI Amount per Month</th>
+                            <th scope="col">Next EMI Due Date</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={personalLoanRecords} for:item="emi">
+                            <tr key={emi.Id}>
+                                <td>{emi.Name}</td>
+                                <td>{emi.Sanctioned_Amount__c}</td>
+                                <td>{emi.Amount_Yet_To_be_Paid__c}</td>
+                                <td>{emi.No_of_EMIs_paid__c}</td>
+                                <td>{emi.EMI_Per_Month__c}</td>
+                                <td>{emi.Next_EMI_Due_Date__c}</td>
+                                <td>
+                                    <lightning-button label="Pay" data-id={emi.Id} onclick={handlePay}></lightning-button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </lightning-card>
+        </template>
+
+        <template if:true={vehicleLoanRecords.length}>
+            <lightning-card title="Vehicle Loan EMI Records" class="slds-m-top_medium">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr>
+                            <th scope="col">EMI Name</th>
+                            <th scope="col">Sanctioned Amount</th>
+                            <th scope="col">Amount Yet to be Paid</th>
+                            <th scope="col">Number of EMIs Paid</th>
+                            <th scope="col">EMI Amount per Month</th>
+                            <th scope="col">Next EMI Due Date</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={vehicleLoanRecords} for:item="emi">
+                            <tr key={emi.Id}>
+                                <td>{emi.Name}</td>
+                                <td>{emi.Sanctioned_Amount__c}</td>
+                                <td>{emi.Amount_Yet_To_be_Paid__c}</td>
+                                <td>{emi.No_of_EMIs_paid__c}</td>
+                                <td>{emi.EMI_Per_Month__c}</td>
+                                <td>{emi.Next_EMI_Due_Date__c}</td>
+                                <td>
+                                    <lightning-button label="Pay" data-id={emi.Id} onclick={handlePay}></lightning-button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </lightning-card>
+        </template>
+    </lightning-card>
+</template>

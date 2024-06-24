@@ -1,0 +1,101 @@
+<template>
+    <!-- Apply New Loan Button -->
+    <lightning-button label="Apply New Loan" onclick={handleApplyLoan} class="slds-m-top_medium"></lightning-button>
+
+    <!-- Modal Section -->
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleClose}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">Loan Application Form</h2>
+                </header>
+
+                <!-- Modal/Popup Body -->
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-card title="Loan Application Form" class="slds-m-around_medium">
+                        <div class="slds-p-around_medium">
+                            <!-- Loan Application Name -->
+                            <lightning-input 
+                                label="Loan Application Name" 
+                                name="loanApplicationName" 
+                                value={loanApplicationName} 
+                                onchange={handleChange}>
+                            </lightning-input>
+
+                            <!-- Loan Type -->
+                            <lightning-combobox 
+                                label="Loan Type" 
+                                name="loanType" 
+                                value={loanType} 
+                                options={loanTypeOptions} 
+                                onchange={handleChange}>
+                            </lightning-combobox>
+
+                            <!-- Amount -->
+                            <lightning-input 
+                                label="Amount" 
+                                name="amount" 
+                                type="number" 
+                                value={amount} 
+                                onchange={handleChange}>
+                            </lightning-input>
+                        </div>
+                    </lightning-card>
+
+                    <!-- File Uploads Section -->
+                    <div class="slds-m-around_medium">
+                        <lightning-file-upload label="Upload Pan Card" name="panCard" accept=".pdf,.jpg,.png" record-id={loanApplicationId} onuploadfinished={handleFileChange}></lightning-file-upload>
+                        <lightning-file-upload label="Upload Job Letter" name="jobLetter" accept=".pdf,.jpg,.png" record-id={loanApplicationId} onuploadfinished={handleFileChange}></lightning-file-upload>
+                        <lightning-file-upload label="Upload Pay Slip" name="paySlip" accept=".pdf,.jpg,.png" record-id={loanApplicationId} onuploadfinished={handleFileChange}></lightning-file-upload>
+                        <lightning-file-upload label="Upload Bank Statement" name="bankStatement" accept=".pdf,.jpg,.png" record-id={loanApplicationId} onuploadfinished={handleFileChange}></lightning-file-upload>
+
+                        <!-- Conditional File Uploads -->
+                        <template if:true={isPersonalLoan}>
+                            <lightning-file-upload label="Upload Property File" name="propertyFile" accept=".pdf,.jpg,.png" record-id={loanApplicationId} onuploadfinished={handleFileChange}></lightning-file-upload>
+                        </template>
+                        <template if:true={isVehicleLoan}>
+                            <lightning-file-upload label="Upload Vehicle Details" name="vehicleDetails" accept=".pdf,.jpg,.png" record-id={loanApplicationId} onuploadfinished={handleFileChange}></lightning-file-upload>
+                            <lightning-file-upload label="Upload License" name="license" accept=".pdf,.jpg,.png" record-id={loanApplicationId} onuploadfinished={handleFileChange}></lightning-file-upload>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Modal/Popup Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={handleCloseModal}></lightning-button>
+                    <lightning-button variant="brand" label="Save" onclick={handleSave}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        <template if:true={showModal2}>
+
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container custom-modal-container">
+                    <!-- Modal/Popup Header -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleClose}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium">Confirmation Page</h2>
+                    </header>
+    
+                    <!-- Modal/Popup Body -->
+                    <div class="slds-modal__content slds-p-around_medium">              
+                        <p><strong>Your application will be submitted for document verification. Please confirm to proceed</strong></p>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="brand"  label="Confirm" onclick={handleConfirm}></lightning-button>
+                        <lightning-button variant="destructive" label="Reject" onclick={handleReject}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+        </template>
+    </template>
+</template>

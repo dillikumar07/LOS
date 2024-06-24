@@ -1,0 +1,79 @@
+<template>
+    <!-- Apply New Loan Button -->
+    <lightning-button label="Edit" onclick={handlelEditButton} class="slds-m-top_medium"></lightning-button>
+
+    <!-- Modal Section -->
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container custom-modal-container">
+                <!-- Modal/Popup Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleClose}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">Loan Application Form</h2>
+                </header>
+
+                <!-- Modal/Popup Body -->
+                <lightning-card title="Loan Account Details" icon-name="custom:custom63">
+                    <div class="slds-card__body custom-card-body">
+                    <template if:true={records}>
+                        <template for:each={records} for:item="record">
+                            <lightning-record-edit-form key={record.Id} object-api-name="Loan_Account__c" record-id={record.Id} onsuccess={handleSuccess}>
+                                <lightning-messages></lightning-messages>
+            
+                                                        <!-- Personal Information Section -->
+                    <h3 class="slds-section__title slds-p-bottom_x-small">Personal Information</h3>
+                    <lightning-input-field field-name="Name" value={record.Name}></lightning-input-field>
+                    <lightning-input-field field-name="DateofBirth__c" value={record.DateofBirth__c}></lightning-input-field>
+                    <lightning-input-field field-name="Birthplace__c" value={record.Birthplace__c}></lightning-input-field>
+                    <lightning-input-field field-name="Marital_status__c" value={record.Marital_status__c}></lightning-input-field>
+
+                    <!-- Contact Information Section -->
+                    <h3 class="slds-section__title slds-p-bottom_x-small slds-m-top_medium">Contact Information</h3>
+                    <lightning-input-field field-name="EmailAddress__c" value={record.EmailAddress__c}></lightning-input-field>
+                    <lightning-input-field field-name="TelephoneNumbers__c" value={record.TelephoneNumbers__c}></lightning-input-field>
+                    <lightning-input-field field-name="PermanentResidentialAddress__c" value={record.PermanentResidentialAddress__c}></lightning-input-field>
+
+                    <!-- Employment Information Section -->
+                    <h3 class="slds-section__title slds-p-bottom_x-small slds-m-top_medium">Employment Information</h3>
+                    <lightning-input-field field-name="Employment_Status__c" value={record.Employment_Status__c}></lightning-input-field>
+                    <lightning-input-field field-name="Position__c" value={record.Position__c}></lightning-input-field>
+                    <lightning-input-field field-name="Salary__c" value={record.Salary__c}></lightning-input-field>
+                    <lightning-input-field field-name="Work_Address__c" value={record.Work_Address__c}></lightning-input-field>
+
+                    <!-- Bank Information Section -->
+                    <h3 class="slds-section__title slds-p-bottom_x-small slds-m-top_medium">Bank Information</h3>
+                    <lightning-input-field field-name="Bank_Name__c" value={record.Bank_Name__c}></lightning-input-field>
+                    <lightning-input-field field-name="Bank_Branch__c" value={record.Bank_Branch__c}></lightning-input-field>
+                    <lightning-input-field field-name="Account_Number__c" value={record.Account_Number__c}></lightning-input-field>
+                    <lightning-input-field field-name="Account_Type__c" value={record.Account_Type__c}></lightning-input-field>
+                    <lightning-input-field field-name="IFSC_Code__c" value={record.IFSC_Code__c}></lightning-input-field>
+
+                    <!-- Additional Information Section -->
+                    <h3 class="slds-section__title slds-p-bottom_x-small slds-m-top_medium">Additional Information</h3>
+                    
+                    <lightning-input-field field-name="PersonalIdentification__c" value={record.PersonalIdentification__c}></lightning-input-field>
+                    <lightning-input-field field-name="Signature__c" value={record.Signature__c}></lightning-input-field>
+
+                                <!-- Save Button -->
+                                <lightning-button class="slds-m-top_medium slds-align_absolute-center" variant="brand" type="submit" name="update" label="Save"></lightning-button>
+                            </lightning-record-edit-form>
+                        </template>
+                    </template>
+                    <template if:true={error}>
+                        <div class="slds-text-color_error slds-p-horizontal_small">NO RECORDS FOUND</div>
+                    </template>
+                </div>
+                </lightning-card>
+                <!-- Modal/Popup Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={handleCloseModal}></lightning-button>
+                    <lightning-button variant="brand" label="Save" onclick={handleSave}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

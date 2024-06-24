@@ -1,0 +1,63 @@
+<template>
+
+    <template if:true={hasPlans}>
+        <lightning-card title="EMI Plans">
+            <p><strong>Sanctioned Amount : {sanctionedAmount}</strong></p>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                    
+                        <th scope="col">
+                            <div class="slds-truncate" title="Annual Interest Rate">Annual Interest Rate</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Loan Tenure (Years)">Loan Tenure (Years)</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="EMI">EMI</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Action">Action</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={loanPlans} for:item="plan">
+                        <tr key={plan.loanTenureYears}>
+                            <td data-label="Annual Interest Rate">
+                                <div class="slds-truncate" title={plan.annualInterestRate}>{plan.annualInterestRate}%</div>
+                            </td>
+                            <td data-label="Loan Tenure (Years)">
+                                <div class="slds-truncate" title={plan.loanTenureYears}>{plan.loanTenureYears}</div>
+                            </td>
+                            <td data-label="EMI">
+                                <div class="slds-truncate" title={plan.emi}>{plan.emi}</div>
+                            </td>
+                            <td data-label="Action">
+                                <lightning-button 
+                                    label="Select Plan" 
+                                    data-id={plan.loanTenureYears} 
+                                    onclick={handlePlanSelection}>
+                                </lightning-button>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </lightning-card>
+    </template>
+
+    <template if:true={selectedPlan}>
+        <lightning-card title="Selected Plan">
+            <p><strong>Principal Amount:</strong> {selectedPlan.principalAmount}</p>
+            <p><strong>Annual Interest Rate:</strong> {selectedPlan.annualInterestRate}</p>
+            <p><strong>Loan Tenure (Years):</strong> {selectedPlan.loanTenureYears}</p>
+            <p><strong>EMI:</strong> {selectedPlan.emi}</p>
+            <lightning-button 
+                label="Accept Selected Plan" 
+                onclick={handleAcceptPlan} 
+                class="accept-button">
+            </lightning-button>
+        </lightning-card>
+    </template>
+</template>

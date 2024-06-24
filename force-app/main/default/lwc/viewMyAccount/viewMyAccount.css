@@ -1,0 +1,35 @@
+/* Container styling to center content and add a gradient background */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh; /* Further reduced height */
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); /* Gradient background */
+}
+
+/* Styling for the inner container to give a card-like appearance */
+.slds-p-around_medium {
+    background: #ffffff;
+    padding: 1px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling for a more vibrant look and interactive feel */
+.big-button {
+    font-size: 20px; /* Increase font size */
+    padding: 15px 30px; /* Increase padding */
+    height: auto; /* Ensure height is adjusted according to the padding */
+    width: auto; /* Ensure width is adjusted according to the padding */
+    background-color: #ff6f61; /* Custom background color */
+    color: #ffffff; /* Custom text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.big-button:hover {
+    background-color: #ff3b2f; /* Darken background on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}

@@ -1,0 +1,8 @@
+.custom-modal-container {
+    max-height: 80vh; /* Set maximum height */
+    overflow-y: auto; /* Add vertical scrolling when necessary */
+}
+
+.custom-card-body {
+    padding: 0; /* Remove default padding from card body */
+}

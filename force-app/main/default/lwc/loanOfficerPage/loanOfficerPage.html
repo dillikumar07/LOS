@@ -1,0 +1,105 @@
+<template>
+    <div class="scroll-container">
+        <!-- Personal Loans -->
+
+      
+        <lightning-card title="Personal Loans" if:true={personalLoans}>
+            <lightning-combobox
+                label="Personal Loan Verification Status"
+                value={personalVerificationStatus}
+                options={statusOptions}
+                onchange={handlePersonalFilterChange}>
+            </lightning-combobox>
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr>
+                        <th scope="col">Account Holder Name</th>
+                        <th scope="col">Loan Name</th>
+                        <th scope="col">Loan Type</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">VerificationStatusbyloanofficer</th>
+                        <th scope="col">Salary</th>
+                        <th scope="col">Credit Score</th>
+                        <th scope="col">Change Status</th>
+                        <th scope="col">actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={personalLoans} for:item="loan">
+                        <tr key={loan.LoanId}>
+                            
+                            <td data-label="Loan Name">{loan.LoanAccountName}</td>
+                            <td data-label="Loan Name">{loan.LoanName}</td>
+                            <td data-label="Loan Type">{loan.LoanType}</td>
+                            <td data-label="Loan Amount">{loan.LoanAmount}</td> 
+                            <td data-label="VerificationStatusbyloanofficer">{loan.LoanStatus}</td>
+                            <td data-label="salarydetails">{loan.salarydetails}</td>
+                            <td data-label="credit score">{loan.Creditscore}</td>
+                            <td data-label="Verification Status">
+                                <lightning-combobox
+                                    name={loan.LoanId}
+                                    value={loan.LoanVerificationStatus}
+                                    options={verificationOptions}
+                                    onchange={handlePersonalStatusChange}>
+                                </lightning-combobox>
+                            </td>
+                            <td data-label="Actions">
+                                <lightning-button label="View Documents" onclick={handleViewDocuments} data-id={loan.DocumentId}></lightning-button>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </lightning-card>
+
+        <!-- Vehicle Loans -->
+        <lightning-card title="Vehicle Loans" if:true={vehicleLoans}>
+            <lightning-combobox
+                label="Vehicle Loan Verification Status"
+                value={vehicleVerificationStatus}
+                options={statusOptions}
+                onchange={handleVehicleFilterChange}>
+            </lightning-combobox>
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr>
+                        <th scope="col">Account Holder Name</th>
+                        <th scope="col">Loan Name</th>
+                        <th scope="col">Loan Type</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">VerificationStatusbyloanofficer</th>
+                        <th scope="col">Salary</th>
+                        <th scope="col">Credit Score</th>
+                        <th scope="col">Change Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={vehicleLoans} for:item="loan">
+                        <tr key={loan.LoanId}>
+                            <td data-label="Loan Name">{loan.LoanAccountName}</td>
+                            <td data-label="Loan Name">{loan.LoanName}</td>
+                            <td data-label="Loan Type">{loan.LoanType}</td>
+                            <td data-label="Loan Amount">{loan.LoanAmount}</td>              
+                            <td data-label="VerificationStatusbyloanofficer">{loan.LoanStatus}</td>
+                            <td data-label="salarydetails">{loan.salarydetails}</td>
+                            <td data-label="credit score">{loan.Creditscore}</td>
+                            <td data-label="Verification Status">
+                                <lightning-combobox
+                                    name={loan.LoanId}
+                                    value={loan.LoanVerificationStatus}
+                                    options={verificationOptions}
+                                    onchange={handleVehicleStatusChange}>
+                                </lightning-combobox>
+                            </td>
+                            <td data-label="Actions">
+                                <lightning-button label="View Documents" onclick={handleViewDocuments} data-id={loan.DocumentId}></lightning-button>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </lightning-card>
+    </div>
+    
+</template>

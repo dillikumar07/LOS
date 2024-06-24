@@ -1,0 +1,15 @@
+<template>
+    <template if:true={showLoanAccountForm}>
+        <lightning-card title="Create new Loan Account " icon-name="standard:account">
+            <div class="slds-p-around_medium">
+                <lightning-record-form
+                    object-api-name="Loan_Account__c"
+                    mode="edit"
+                    layout-type="Full"
+                    onsuccess={handleSuccess}>
+                </lightning-record-form>
+            </div>
+        </lightning-card>
+    </template>
+    
+</template>

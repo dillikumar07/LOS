@@ -1,0 +1,34 @@
+<template>
+    <lightning-card title="Transaction Records">
+        <template if:true={transactions.length}>
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr>
+                        <th scope="col">EMI Name</th>
+                        <th scope="col">Payment Date</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={transactions} for:item="transaction">
+                        <tr key={transaction.Id}>
+                            <td>{transaction.Name}</td>
+                            <td>{transaction.Payment_Date__c}</td>
+                            <td>{transaction.Amount__c}</td>
+                            <td>
+                                <lightning-button label="Send Invoice" 
+                                    data-id={transaction.Id} 
+                                    onclick={handleSendInvoice}
+                                    variant="brand">
+                                </lightning-button>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+        <template if:false={transactions.length}>
+            <p>No transactions found</p>
+        </template>
+    </lightning-card>
+</template>

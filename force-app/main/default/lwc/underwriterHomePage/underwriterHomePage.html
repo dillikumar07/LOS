@@ -1,0 +1,102 @@
+<template>
+    <div class="scroll-container">
+        <lightning-card title="Loan Records">
+            <template if:true={personalLoans}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <caption>Personal Loans</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Loan Name</th>
+                            <th scope="col">Loan Type</th>
+                            <th scope="col">Loan Amount</th>
+                            <th scope="col">Document Name</th>
+                            <th scope="col">Verification Status</th>
+                            <th scope="col">Approval Status by Underwriter</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={personalLoans} for:item="loan">
+                            <tr key={loan.LoanId}>
+                                <td data-label="Loan Name">{loan.LoanName}</td>
+                                <td data-label="Loan Type">{loan.LoanType}</td>
+                                <td data-label="Loan Amount">{loan.LoanAmount}</td>
+                                <td data-label="Document Name">{loan.DocumentName}</td>
+                                <td data-label="Verification Status">{loan.LoanStatus}</td>
+                                <td data-label="Underwriter Approval Status">{loan.ApprovalStatusByUnderwriter}</td>
+                                <td data-label="Approval Status by Underwriter">
+                                    <lightning-combobox name={loan.LoanId} value={loan.ApprovalStatusByUnderwriter} options={approvalOptions} onchange={handleApprovalStatusChange}></lightning-combobox>
+                                </td>
+                                <td data-label="Actions">
+                                    <lightning-button label="View Documents" onclick={handleViewDocuments} data-id={loan.DocumentId}></lightning-button>
+                                    
+                                
+                                </td>
+                                <td><lightning-button label="Check Eligibility" onclick={handleCheckEligibility} data-id={loan.LoanId} data-salary={loan.Salary} data-creditscore={loan.creditscore}></lightning-button></td>
+                    
+                                <td data-label="view record"><lightning-button label="View Record" onclick={handleViewRecord} data-id={loan.LoanId}></lightning-button></td>
+                                <td data-label="Sanction Loan">
+                                    <lightning-button label="Sanction Loan" onclick={handleSanctionLoan} data-id={loan.LoanId} data-salary={loan.Salary} data-loan-amount={loan.LoanAmount}></lightning-button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+            <template if:true={vehicleLoans}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <caption>Vehicle Loans</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Loan Name</th>
+                            <th scope="col">Loan Type</th>
+                            <th scope="col">Loan Amount</th>
+                            <th scope="col">Document Name</th>
+                            <th scope="col">Verification Status</th>
+                            <th scope="col">Approval Status by Underwriter</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={vehicleLoans} for:item="loan">
+                            <tr key={loan.LoanId}>
+                                <td data-label="Loan Name">{loan.LoanName}</td>
+                                <td data-label="Loan Type">{loan.LoanType}</td>
+                                <td data-label="Loan Amount">{loan.LoanAmount}</td>
+                                <td data-label="Document Name">{loan.DocumentName}</td>
+                                <td data-label="Verification Status">{loan.LoanVerificationStatus}</td>
+                                <td data-label="Underwriter Approval Status">{loan.ApprovalStatusByUnderwriter}</td>
+                                <td data-label="Approval Status by Underwriter">
+                                    <lightning-combobox name={loan.LoanId} value={loan.ApprovalStatusByUnderwriter} options={approvalOptions} onchange={handleApprovalStatusChange}></lightning-combobox>
+                                </td>
+                                <td data-label="Actions">
+                                    <lightning-button label="View Documents" onclick={handleViewDocuments} data-id={loan.DocumentId}></lightning-button>
+                                    
+                                </td>
+                                <td><lightning-button label="Check Eligibility" onclick={handleCheckEligibility} data-id={loan.LoanId} data-salary={loan.Salary} data-creditscore={loan.creditscore}></lightning-button></td>
+                                <td data-label="view record"><lightning-button label="View Record" onclick={handleViewRecord} data-id={loan.LoanId} ></lightning-button></td>
+                                <td data-label="Sanction Loan">
+                                    <lightning-button label="Sanction Loan" onclick={handleSanctionLoan} data-id={loan.LoanId} data-salary={loan.Salary} data-loan-amount={loan.LoanAmount}></lightning-button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+        </lightning-card>
+    </div>
+    <div if:true={showRejectionModal} class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">Rejection Reason</h2>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium">
+                <lightning-textarea label="Rejection Reason" value={rejectionReason} onchange={handleRejectionReasonChange}></lightning-textarea>
+            </div>
+            <div class="slds-modal__footer">
+                <lightning-button label="Send Email" onclick={handleSendEmail}></lightning-button>
+                <lightning-button label="Close" onclick={handleCloseModal}></lightning-button>
+            </div>
+        </div>
+    </div>
+</template>
